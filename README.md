@@ -1,16 +1,68 @@
-# React + Vite
+# Kanban Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend часть web-приложения для управления задачами по методологии Kanban.
 
-Currently, two official plugins are available:
+## Описание проекта
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Данное приложение представляет собой клиентскую часть системы управления задачами. Пользователь может:
 
-## React Compiler
+- создавать проекты;
+- открывать Kanban-доски;
+- создавать задачи;
+- перемещать задачи между колонками;
+- фильтровать задачи по исполнителям;
+- просматривать просроченные задачи.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Frontend разработан с использованием React и Vite.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Используемые технологии
+
+- React
+- Vite
+- React Router DOM
+- Axios
+- @hello-pangea/dnd
+- CSS
+
+---
+
+## Структура проекта
+
+
+src/
+ ├── api/
+ ├── pages/
+ ├── components/
+ ├── routes/
+ ├── App.jsx
+ └── main.jsx
+Основной функционал
+Работа с проектами
+создание проектов;
+удаление проектов;
+переход к Kanban-доске проекта.
+Работа с задачами
+создание задач;
+отображение задач по статусам;
+drag-and-drop перемещение карточек;
+фильтрация задач по исполнителю;
+отображение сроков выполнения.
+Kanban-доска
+
+Доска разделена на 4 колонки:
+
+Backlog
+In Progress
+Review
+Done
+Установка проекта
+1. Клонирование репозитория
+git clone https://github.com/USERNAME/frontend-repository.git
+2. Переход в папку проекта
+cd frontend-project
+3. Установка зависимостей
+npm install
+4. Запуск проекта
+npm run dev
