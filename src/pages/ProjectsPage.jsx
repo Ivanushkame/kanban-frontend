@@ -45,11 +45,15 @@ function ProjectsPage() {
   }
 };
 
-  const deleteProject = (id) => {
-    setProjects(
-      projects.filter((project) => project.id !== id)
-    );
-  };
+ const deleteProject = async (id) => {
+  try {
+    await api.delete(`/projects/${id}`);
+
+    fetchProjects();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <div
