@@ -24,20 +24,26 @@ function ProjectsPage() {
     }
   };
 
-  const createProject = () => {
-    if (!newProjectName) return;
+  const createProject = async () => {
+  if (!newProjectName) return;
 
-    const newProject = {
-      id: Date.now(),
+  try {
+    await api.post('/projects', {
       name: newProjectName,
       description: newProjectDescription,
-    };
+    });
 
-    setProjects([...projects, newProject]);
+    fetchProjects();
 
     setNewProjectName('');
     setNewProjectDescription('');
-  };
+  } catch (error) {
+    console.error(
+      'Ошибка создания проекта:',
+      error.response?.data || error
+    );
+  }
+};
 
   const deleteProject = (id) => {
     setProjects(

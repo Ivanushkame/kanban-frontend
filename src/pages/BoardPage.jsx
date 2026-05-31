@@ -51,43 +51,60 @@ function BoardPage() {
     ...new Set(tasks.map((task) => task.assignee)),
   ];
 
-  const handleDragEnd = (result) => {
-    if (!result.destination) return;
+  const handleDragEnd = async (result) => {
+  if (!result.destination) return;
 
-    const taskId = parseInt(result.draggableId);
-    const newStatus =
-      result.destination.droppableId;
+  const taskId = parseInt(
+    result.draggableId
+  );
 
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId
-        ? { ...task, status: newStatus }
-        : task
+  const newStatus =
+    result.destination.droppableId;
+
+  try {
+    await api.patch(
+      `/tasks/${taskId}/status`,
+      {
+        status: newStatus,
+      }
     );
 
-    setTasks(updatedTasks);
-  };
+    await fetchTasks();
+  } catch (error) {
+    console.error(
+      'Ошибка обновления статуса:',
+      error
+    );
+  }
+};
 
-  const createTask = () => {
-    if (!newTaskTitle) return;
+  const createTask = async () => {
+  if (!newTaskTitle) return;
 
-    const newTask = {
-      id: Date.now(),
+  try {
+    await api.post('/tasks', {
       title: newTaskTitle,
       description: newTaskDescription,
       assignee: newTaskAssignee,
       due_date: newTaskDueDate,
       status: newTaskStatus,
-    };
+      project_id: 1,
+    });
 
-    setTasks([...tasks, newTask]);
+    await fetchTasks();
 
     setNewTaskTitle('');
     setNewTaskDescription('');
     setNewTaskAssignee('');
     setNewTaskDueDate('');
     setNewTaskStatus('backlog');
-  };
-
+  } catch (error) {
+    console.error(
+      'Ошибка создания задачи:',
+      error
+    );
+  }
+};
   return (
     <div
       style={{
