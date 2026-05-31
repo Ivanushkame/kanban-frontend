@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import api from '../api/api';
 
 import {
@@ -8,6 +9,7 @@ import {
 } from '@hello-pangea/dnd';
 
 function BoardPage() {
+  const { id } = useParams();
   const [tasks, setTasks] = useState([]);
   const [selectedAssignee, setSelectedAssignee] =
     useState('');
@@ -29,7 +31,9 @@ function BoardPage() {
 
   const fetchTasks = async () => {
     try {
-      const response = await api.get('/tasks');
+      const response = await api.get(
+  `/tasks/project/${id}`
+);
       setTasks(response.data);
     } catch (error) {
       console.error('Ошибка загрузки задач:', error);
@@ -88,7 +92,7 @@ function BoardPage() {
       assignee: newTaskAssignee,
       due_date: newTaskDueDate,
       status: newTaskStatus,
-      project_id: 1,
+      project_id: Number(id),
     });
 
     await fetchTasks();
